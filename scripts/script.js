@@ -39,15 +39,26 @@ function clearDisplay(id) {
     }
 }
 
+function calculate(stringOperation) {
+
+    return num;
+}
+
 let firstNum, operator, secondNum;
 
 const displayInput = document.querySelector('.display-value');
-const numsOpsContainer = document.querySelector('.num-operations');
+const numsOpsContainer = document.querySelector('.num-operations-container');
 
 numsOpsContainer.addEventListener('click', (event) => {
     /* console.log(event.target.id, event.target.className); */
     const classTarget = event.target.className;
-    if (classTarget === 'numbers') {
+    if (classTarget === 'numbers' || 
+        classTarget === 'dot' || 
+        classTarget === 'smiley') {
+            
+        if (displayInput.value == '0') {
+            displayInput.value = '';
+        }
         displayInput.value += event.target.textContent;
     } else if (classTarget == 'ops') {
         displayInput.value += event.target.value;
