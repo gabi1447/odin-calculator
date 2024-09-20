@@ -19,14 +19,14 @@
 }
 
 .ops-container {
-    
+
 }
 
 ul {
     list-style-type: none;
 }
 
-.numbers, .ops, .equal {
+.numbers, .ops, .equal, .clear {
     margin: .25rem;
     padding: 0.5rem 1rem;
 }

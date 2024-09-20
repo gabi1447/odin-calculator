@@ -10,7 +10,7 @@
 <body>
     <div class="calc-container">
         <div class="output-screen">
-            <input type="text" placeholder="0">
+            <input type="text" class="display-value" placeholder="0">
         </div>
         
         <div class="num-operations">
@@ -26,16 +26,17 @@
                 <li><button id="three" class="numbers">3</button></li>
             </ul>
             <ul class="ops-container">
-                <li><button id="clear" class="ops">C</button></li>
-                <li><button id="return" class="ops">←</button></li>
-                <li><button id="multiply" class="ops">x</button></li>
-                <li><button id="divide" class="ops">÷</button></li>
-                <li><button id="add" class="ops">+</button></li>
-                <li><button id="subtract" class="ops">-</button></li>
+                <li><button id="clear" class="clear">C</button></li>
+                <li><button id="return" class="clear">←</button></li>
+                <li><button id="multiply" value="x" class="ops">x</button></li>
+                <li><button id="divide" value="/" class="ops">÷</button></li>
+                <li><button id="add" value="+" class="ops">+</button></li>
+                <li><button id="subtract" value="-" class="ops">-</button></li>
             </ul>
-        </div>
-        <div class="equal">
-            <button type="button" class="equal">=</button>
+
+            <div class="equal">
+                <button type="button" class="equal">=</button>
+            </div>
         </div>
     </div>
 </body>

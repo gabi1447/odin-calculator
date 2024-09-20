@@ -27,4 +27,35 @@ function operate(firstNum, operator, secondNum) {
     }
 }
 
+function removeLastChar(string) {
+    return string.slice(0, string.length - 1);
+}
+
+function clearDisplay(id) {
+    if (id === 'return') {
+        displayInput.value = removeLastChar(displayInput.value);
+    } else if (id === 'clear') {
+        displayInput.value = displayInput.getAttribute('placeholder');
+    }
+}
+
 let firstNum, operator, secondNum;
+
+const displayInput = document.querySelector('.display-value');
+const numsOpsContainer = document.querySelector('.num-operations');
+
+numsOpsContainer.addEventListener('click', (event) => {
+    /* console.log(event.target.id, event.target.className); */
+    const classTarget = event.target.className;
+    if (classTarget === 'numbers') {
+        displayInput.value += event.target.textContent;
+    } else if (classTarget == 'ops') {
+        displayInput.value += event.target.value;
+    } else if (classTarget === 'clear') {
+        clearDisplay(event.target.id);
+    } else if (classTarget === 'equal') {
+        displayInput.value = calculate(displayInput.value);
+    } else {
+        return;
+    }
+});
