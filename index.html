@@ -5,9 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/script.js" defer></script>
 </head>
 <body>
-    
+    <div class="calc-container">
+        <div class="output-screen">
+            <input type="text" placeholder="0">
+        </div>
+        
+        <div class="num-operations">
+            <ul class="num-container">
+                <li><button id="seven" class="numbers">7</button></li>
+                <li><button id="eight" class="numbers">8</button></li>
+                <li><button id="nine" class="numbers">9</button></li>
+                <li><button id="four" class="numbers">4</button></li>
+                <li><button id="five" class="numbers">5</button></li>
+                <li><button id="six" class="numbers">6</button></li>
+                <li><button id="one" class="numbers">1</button></li>
+                <li><button id="two" class="numbers">2</button></li>
+                <li><button id="three" class="numbers">3</button></li>
+            </ul>
+            <ul class="ops-container">
+                <li><button id="clear" class="ops">C</button></li>
+                <li><button id="return" class="ops">←</button></li>
+                <li><button id="multiply" class="ops">x</button></li>
+                <li><button id="divide" class="ops">÷</button></li>
+                <li><button id="add" class="ops">+</button></li>
+                <li><button id="subtract" class="ops">-</button></li>
+            </ul>
+        </div>
+        <div class="equal">
+            <button type="button" class="equal">=</button>
+        </div>
+    </div>
 </body>
 </html>

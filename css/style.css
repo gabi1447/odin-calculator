@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.calc-container {
+    width: 60%;
+    padding: 1rem;
+    margin: auto;
+}
+
+.num-operations {
+    display: flex;
+}
+
+.num-container {
+    
+}
+
+.ops-container {
+    
+}
+
+ul {
+    list-style-type: none;
+}
+
+.numbers, .ops, .equal {
+    margin: .25rem;
+    padding: 0.5rem 1rem;
+}
