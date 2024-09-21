@@ -1,17 +1,17 @@
 function add(num1, num2) {
-    return num1 + num2;
+    return +num1 + +num2;
 }
 
 function subtract(num1, num2) {
-    return num1 - num2;
+    return +num1 - +num2;
 }
 
 function multiply(num1, num2) {
-    return num1 * num2;
+    return +num1 * +num2;
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    return +num1 / +num2;
 }
 
 function operate(firstNum, operator, secondNum) {
@@ -39,12 +39,24 @@ function clearDisplay(id) {
     }
 }
 
-function calculate(stringOperation) {
+let firstNum, operator, secondNum;
 
-    return num;
+function captureGroups(stringOperation) {
+    pattern = /([\d]+\.?[\d]*)([+-\/*])([\d]+\.?[\d]*)/;
+    result = stringOperation.match(pattern);
+
+    return [result[1], result[2], result[3]];
 }
 
-let firstNum, operator, secondNum;
+/* function isFloat(num) {
+    const roundedNum = Math.floor(num);
+    return roundedNum === num ? false : true;
+} */
+
+function calculate(groupArray) {
+    const [firstNum, operator, secondNum] = groupArray;
+    return operate(firstNum, operator, secondNum);
+}
 
 const displayInput = document.querySelector('.display-value');
 const numsOpsContainer = document.querySelector('.num-operations-container');
@@ -55,11 +67,12 @@ numsOpsContainer.addEventListener('click', (event) => {
     if (classTarget === 'numbers' || 
         classTarget === 'dot' || 
         classTarget === 'smiley') {
-            
+
         if (displayInput.value == '0') {
             displayInput.value = '';
         }
         displayInput.value += event.target.textContent;
+
     } else if (classTarget == 'ops') {
         displayInput.value += event.target.value;
     } else if (classTarget === 'clear') {
