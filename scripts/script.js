@@ -59,7 +59,7 @@ function isFloat(num) {
 }
 
 function divideDisplayInputBy100(stringNum) {
-    const numPattern = /^[\d]+$/;
+    const numPattern = /^[\d]+\.?[\d]*$/;
     if (stringNum.match(numPattern)) {
         displayInput.value =  +stringNum / 100;
     } else {
