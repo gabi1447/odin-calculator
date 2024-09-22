@@ -17,13 +17,14 @@ function divide(num1, num2) {
 function operate(firstNum, operator, secondNum) {
     switch (operator) {
         case '+':
-            return add(firstNum, secondNum);
+            return cutFloatOverflow(add(firstNum, secondNum));
         case '-':
-            return subtract(firstNum, secondNum);
+            return cutFloatOverflow(subtract(firstNum, secondNum));
         case '*':
-            return multiply(firstNum, secondNum);
+            return cutFloatOverflow(multiply(firstNum, secondNum));
         case '/':
-            return divide(firstNum, secondNum);
+            const result = cutFloatOverflow(divide(firstNum, secondNum));
+            return result === Infinity ? 'Zzzzz' : result;
     }
 }
 
@@ -39,47 +40,84 @@ function clearDisplay(id) {
     }
 }
 
-let firstNum, operator, secondNum;
-
 function captureGroups(stringOperation) {
-    pattern = /([\d]+\.?[\d]*)([+-\/*])([\d]+\.?[\d]*)/;
-    result = stringOperation.match(pattern);
-
-    return [result[1], result[2], result[3]];
+    pattern = /^([\d]+\.?[\d]*)((?!\.)[+-\/*])([\d]+\.?[\d]*)([+-\/*])?$/;
+    return stringOperation.match(pattern);
 }
 
-/* function isFloat(num) {
+function cutFloatOverflow(num) {
+    const stringNum = num.toString();
+    if (stringNum.length > 15 && isFloat(num)) {
+        return +stringNum.slice(0, 16);
+    } 
+    return num;
+}
+
+function isFloat(num) {
     const roundedNum = Math.floor(num);
     return roundedNum === num ? false : true;
-} */
-
-function calculate(groupArray) {
-    const [firstNum, operator, secondNum] = groupArray;
-    return operate(firstNum, operator, secondNum);
 }
 
+function divideDisplayInputBy100(stringNum) {
+    const numPattern = /^[\d]+$/;
+    if (stringNum.match(numPattern)) {
+        displayInput.value =  +stringNum / 100;
+    } else {
+        return;
+    }
+}
+
+function addDotToDisplayInput() {
+    let displayValue = displayInput.value + '.';
+    dotPattern = /^([\d]+\.?[\d]*)?((?!\.)[+-\/*])?([\d]+\.?[\d]*)?$/;
+    if (displayValue.match(dotPattern)) {
+        displayInput.value = displayValue;
+    }
+}
+
+let firstNum, operator, secondNum, secondOperator;
 const displayInput = document.querySelector('.display-value');
 const numsOpsContainer = document.querySelector('.num-operations-container');
+const changeDisplayInputEvent = new Event('input');
 
 numsOpsContainer.addEventListener('click', (event) => {
     /* console.log(event.target.id, event.target.className); */
     const classTarget = event.target.className;
-    if (classTarget === 'numbers' || 
-        classTarget === 'dot' || 
-        classTarget === 'smiley') {
+    if (classTarget === 'numbers' || classTarget === 'smiley') {
 
         if (displayInput.value == '0') {
             displayInput.value = '';
         }
         displayInput.value += event.target.textContent;
+        displayInput.dispatchEvent(changeDisplayInputEvent);
 
-    } else if (classTarget == 'ops') {
+    } else if (classTarget === 'dot') {
+        /* displayInput.value += returnDotIfNotPresent(displayInput.value); */
+        addDotToDisplayInput();
+    } else if (classTarget === 'ops') {
         displayInput.value += event.target.value;
+        displayInput.dispatchEvent(changeDisplayInputEvent);
+    } else if (classTarget === 'divideBy100') {
+        divideDisplayInputBy100(displayInput.value);
     } else if (classTarget === 'clear') {
         clearDisplay(event.target.id);
     } else if (classTarget === 'equal') {
-        displayInput.value = calculate(displayInput.value);
+        displayInput.value = operate(firstNum, operator, secondNum);
     } else {
         return;
+    }
+});
+
+displayInput.addEventListener('input', () => {
+    const stringOperation = displayInput.value;
+    const groups = captureGroups(stringOperation)
+    if (groups) {
+        firstNum = groups[1];
+        operator = groups[2];
+        secondNum = groups[3];
+        secondOperator = groups[4];
+        console.log(firstNum, operator, secondNum, secondOperator, groups);
+        secondOperator ? displayInput.value = 
+        `${operate(firstNum, operator, secondNum)}${secondOperator}`: '';
     }
 });

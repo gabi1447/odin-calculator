@@ -17,11 +17,11 @@ body {
 .calc-container {
     display: flex;
     flex-direction: column;
-    width: 23%;
+    width: 20%;
     height: 55%;
     padding: 1rem;
     gap: 1rem;
-    min-width: 300px;
+    min-width: 350px;
     padding: 1.5rem;
     background-color: #FFC90E;
     border: 0.25rem solid black;
